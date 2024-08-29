@@ -5,7 +5,5 @@
 
 ## Compile SCSS
 
-```bash
-cd styles
-sass scss/bootstrap-custom.scss:bootstrap-custom.css
-```
+## Website link
+Live preview 
