@@ -164,7 +164,7 @@ function Profile() {
 Profile.simpleHeader = true;
 Profile.hideAuth = true;
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   const session = await getSession(context);
 
   if (!session) {
