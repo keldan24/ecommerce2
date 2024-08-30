@@ -91,7 +91,7 @@ function Login() {
             </div>
             <hr className="text-muted my-0" />
             <div className="text-center p-3">
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <Link href="/auth/sign-up">
                 <a className="text-decoration-none fw-medium">Register</a>
               </Link>
