@@ -19,12 +19,11 @@ if (typeof window !== "undefined") {
 
 function MyApp({ Component, pageProps }) {
   const { session } = pageProps;
-  console.log("MyApp component:", { session });
   const getLayout = Component.getLayout || ((page) => page);
 
   return (
     <SessionProvider session={pageProps.session}>
-      <Layout hideAuth={!session}>
+      <Layout hideAuth={!session} simpleHeader={Component.simpleHeader}>
         {getLayout(<Component {...pageProps} />)}
       </Layout>
     </SessionProvider>

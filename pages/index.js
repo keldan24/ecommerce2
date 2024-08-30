@@ -1,5 +1,5 @@
 // pages/index.js
-import { getSession } from "next-auth/react";
+// import { getSession } from "next-auth/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "react-responsive-carousel";
 import ProductSimpleCard from "../components/product/product-simple-card";
@@ -56,6 +56,20 @@ export default function Home() {
                 );
               }}
             >
+              <div className="ratio ratio-21x9">
+                <img
+                  src="/images/online-shopping.jpg"
+                  alt="Cover image"
+                  className="rounded"
+                />
+              </div>
+              <div className="ratio ratio-21x9">
+                <img
+                  src="/images/online-shopping.jpg"
+                  alt="Cover image"
+                  className="rounded"
+                />
+              </div>
               <div className="ratio ratio-21x9">
                 <img
                   src="/images/online-shopping.jpg"

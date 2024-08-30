@@ -4,7 +4,7 @@ import { signOut, useSession } from "next-auth/react";
 
 function Header({ simple, hideAuth }) {
   const { data: session, status } = useSession();
-  console.log("abc",session)
+  // console.log("abc",session)
   //console.log("Header component:", { session, status, hideAuth });
 
   return (
@@ -80,7 +80,6 @@ function Header({ simple, hideAuth }) {
           </div>
         </div>
       </nav>
-      {!simple && (
         <nav className="navbar navbar-expand-lg navbar-light bg-white border-bottom">
           <div className="container">
             <button
@@ -159,7 +158,6 @@ function Header({ simple, hideAuth }) {
             </div>
           </div>
         </nav>
-      )}
     </header>
   );
 }

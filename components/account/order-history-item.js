@@ -21,10 +21,10 @@ function OrderHistoryItem({ id, cancel }) {
             <h6 className="fw-bold">Shipping Address</h6>
             <div className="vstack text-dark small">
               <span>Milk Mocha</span>
-              <span>No. 33, Mocha Street, Milk Township</span>
-              <span>Yangon, Myanmar</span>
-              <span>Tel: +95911223344</span>
-              <span>Email: milkmocha@domain.com</span>
+              <span>No. 123 Keldan Street, Milk Township</span>
+              <span>Lagos, Nigeria</span>
+              <span>Tel: +234911223344</span>
+              <span>Email: mail@domain.com</span>
             </div>
           </div>
           <div className="col-md-4">

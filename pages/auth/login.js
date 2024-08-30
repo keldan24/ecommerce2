@@ -1,31 +1,45 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/router"; // Correct import
+import { useRouter } from "next/router";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
-import Layout from "../../components/layout";
 
 function Login() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setIsLoading(true);
 
-    const result = await signIn("credentials", {
-      redirect: false,
-      email,
-      password,
-    });
+    try {
+      const result = await signIn("credentials", {
+        redirect: false,
+        email,
+        password,
+      });
 
-    if (result.error) {
-      setError(result.error);
-    } else {
-      router.push("/");
+      if (result.error) {
+        if (result.error.includes("No user found")) {
+          setError("No account found with this email. Please check your email or sign up.");
+        } else if (result.error.includes("Invalid password")) {
+          setError("Invalid password. Please try again.");
+        } else {
+          setError("An error occurred during login. Please try again.");
+        }
+      } else {
+        router.push("/");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      setError("An unexpected error occurred. Please try again later.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -68,15 +82,16 @@ function Login() {
                   <button
                     type="submit"
                     className="btn btn-primary w-100"
+                    disabled={isLoading}
                   >
-                    Login
+                    {isLoading ? 'Logging in...' : 'Login'}
                   </button>
                 </div>
               </form>
             </div>
             <hr className="text-muted my-0" />
             <div className="text-center p-3">
-              Don’t have an account?{" "}
+              Don't have an account?{" "}
               <Link href="/auth/sign-up">
                 <a className="text-decoration-none fw-medium">Register</a>
               </Link>
@@ -88,12 +103,7 @@ function Login() {
   );
 }
 
-Login.getLayout = (page) => {
-  return (
-    <Layout simpleHeader hideAuth>
-      {page}
-    </Layout>
-  );
-};
+Login.simpleHeader = true;
+Login.hideAuth = true;
 
 export default Login;

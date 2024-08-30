@@ -5,8 +5,8 @@ import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 
 function Footer({ hideAuth }) {
-  const {data: session} = useSession();
-  console.log("session ", session);
+  const { data: session } = useSession();
+  // console.log("session ", session);
 
 
   return (
@@ -52,7 +52,7 @@ function Footer({ hideAuth }) {
             <div className="col-md-6 col-lg-2 d-none d-md-block">
               <h5 className="text-light">Account</h5>
               <div className="vstack small gap-2">
-              {session ? (
+                {!session ? (
                   <>
                     <Link href="/auth/login">
                       <a className="footer-link">User Login</a>
@@ -62,20 +62,22 @@ function Footer({ hideAuth }) {
                     </Link>
                   </>
                 ) : (
-                  
-                  <a  onClick={() => signOut({ callbackUrl: "/" })}
-                    className="footer-link"
-                    style={{ cursor: 'pointer' }}
-                  >
-                    Logout
-                  </a>
+                  <>
+                    <a onClick={() => signOut({ callbackUrl: "/" })}
+                      className="footer-link"
+                      style={{ cursor: 'pointer' }}
+                    >
+                      Logout
+                    </a>
+                    <Link href="/account/profile">
+                      <a className="footer-link">Account Setting</a>
+                    </Link>
+                    <Link href="/account/current-orders">
+                      <a className="footer-link">My Orders</a>
+                    </Link>
+                  </>
                 )}
-                <Link href="/account/profile">
-                  <a className="footer-link">Account Setting</a>
-                </Link>
-                <Link href="/account/current-orders">
-                  <a className="footer-link">My Orders</a>
-                </Link>
+
               </div>
             </div>
             <div className="col-md-6 col-lg-4">

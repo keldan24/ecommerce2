@@ -1,5 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
+import { Button } from "@mui/material";
+// import ProductImg from '/images/product1'
 
 function ProductGridCard({ id, title, off }) {
   let price = 10000;
@@ -24,15 +26,13 @@ function ProductGridCard({ id, title, off }) {
     );
   }
   return (
-    <div className="card h-100 border-0 shadow-sm">
+    <div className="card h-100 border-0 shadow-sm card-body">
       <Link href="/product/1">
         <a>
           <div className="ratio ratio-1x1">
             <img
-              className="card-img-top "
-              src={`https://source.unsplash.com/random/200x240?random=${Math.floor(
-                Math.random() * 100
-              )}`}
+              className="card-img"
+              src={'/images/product1.jpeg'}
               alt="Product image."
               style={{ objectFit: "cover" }}
             />
@@ -40,7 +40,7 @@ function ProductGridCard({ id, title, off }) {
           {percentOff}
         </a>
       </Link>
-      <div className="card-body">
+      <div className="mt-3">
         <div className="vstack gap-2">
           <Link href="/product/1">
             <a className="text-dark text-decoration-none">Product name here</a>
@@ -49,17 +49,17 @@ function ProductGridCard({ id, title, off }) {
           <h6 className="fw-semibold">{offPrice}</h6>
 
           <div className="hstack gap-2">
-            <button className="btn btn-secondary text-primary flex-grow-1 d-md-block d-lg-none">
+            {/* <button className="btn btn-secondary text-primary flex-grow-1 d-md-block d-lg-none">
               <FontAwesomeIcon icon={["fas", "cart-plus"]} />
-              &nbsp;Add to card
+              &nbsp;Add to car
             </button>
             <button className="btn btn-outline-secondary text-primary border d-md-block d-lg-none">
               <FontAwesomeIcon icon={["far", "heart"]} />
-            </button>
+            </button> */}
 
             <button className="btn btn-sm btn-secondary text-primary flex-grow-1 d-none d-lg-block">
               <FontAwesomeIcon icon={["fas", "cart-plus"]} />
-              &nbsp;Add to card
+              &nbsp;Add to cart
             </button>
             <button className="btn btn-sm btn-outline-secondary text-primary border d-none d-lg-block">
               <FontAwesomeIcon icon={["far", "heart"]} />

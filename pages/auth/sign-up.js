@@ -354,7 +354,7 @@ const SignUp = () => {
                 </div>
                 <div className="col-md-12">
                   <div className="text-muted bg-light rounded p-3 border small">
-                    By clicking the &lsquo;Sign Up&lsquo; button, you confirm
+                    By clicking the &lsquo;<b>Register</b>&lsquo; button, you confirm
                     that you accept our{' '}
                     <a href="#">Terms of use and Privacy Policy</a>.
                   </div>
@@ -409,12 +409,7 @@ const SignUp = () => {
   );
 };
 
-SignUp.getLayout = (page) => {
-  return (
-    <Layout simpleHeader hideAuth>
-      {page}
-    </Layout>
-  );
-};
+SignUp.simpleHeader = true;
+SignUp.hideAuth = true;
 
 export default SignUp;

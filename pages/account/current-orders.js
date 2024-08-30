@@ -1,6 +1,9 @@
 import AccountMenu from "../../components/account-menu";
 import CurrentOrderCard from "../../components/account/current-order-card";
 import Layout from "../../components/layout";
+import { useSession, getSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 function CurrentOrders() {
   return (
@@ -39,8 +42,7 @@ function CurrentOrders() {
   );
 }
 
-CurrentOrders.getLayout = (page) => {
-  return <Layout simpleHeader>{page}</Layout>;
-};
+CurrentOrders.simpleHeader = true;
+CurrentOrders.hideAuth = true;
 
 export default CurrentOrders;

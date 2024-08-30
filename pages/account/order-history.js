@@ -30,7 +30,7 @@ function OrderHistory() {
             <OrderHistoryItem id={20001} />
             <OrderHistoryItem id={20002} cancel />
 
-            <nav className="float-end mt-3">
+            {/* <nav className="float-end mt-3">
               <ul className="pagination">
                 <li className="page-item">
                   <a className="page-link" href="#">
@@ -58,7 +58,7 @@ function OrderHistory() {
                   </a>
                 </li>
               </ul>
-            </nav>
+            </nav> */}
           </div>
         </div>
       </div>
@@ -69,8 +69,7 @@ function OrderHistory() {
   );
 }
 
-OrderHistory.getLayout = (page) => {
-  return <Layout simpleHeader>{page}</Layout>;
-};
+OrderHistory.simpleHeader = true;
+OrderHistory.hideAuth = true;
 
 export default OrderHistory;

@@ -28,7 +28,7 @@ function FavoriteProduct({ id }) {
             <small>
               <ProductRating />
             </small>
-            <h6 className="mb-0 fw-semibold mt-2">15000Ks</h6>
+            <h6 className="mb-0 fw-semibold mt-2">$15000</h6>
             <div className="mb-2 text-truncate" style={{ maxHeight: 44 }}>
               <div className="small text-muted text-wrap">
                 Lorem ipsum is placeholder text commonly used in the graphic,

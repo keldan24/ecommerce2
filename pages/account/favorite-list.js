@@ -83,8 +83,7 @@ function FavoriteList() {
   );
 }
 
-FavoriteList.getLayout = (page) => {
-  return <Layout simpleHeader>{page}</Layout>;
-};
+FavoriteList.simpleHeader = true;
+FavoriteList.hideAuth = true;
 
 export default FavoriteList;

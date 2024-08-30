@@ -1,13 +1,33 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AccountMenu from "../../components/account-menu";
 import AddressView from "../../components/account/address-view";
-import Layout from "../../components/layout";
+import { useSession, getSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const cities = ["Yangon", "Mandalay", "Kalaw"];
 
 const states = ["Thar Kay Ta", "Daw Pon", "San Chaung"];
 
 function Profile() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/auth/login");
+    }
+  }, [status, router]);
+
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
+
+  if (!session) {
+    return null; // This will prevent the profile content from flashing before redirect
+  }
+
+
   return (
     <div>
       <div className="bg-secondary">
@@ -84,17 +104,17 @@ function Profile() {
                         </div>
                       </div>
                       <div className="col-md-6">
-                        <label className="form-label">City</label>
+                        <label className="form-label">State</label>
                         <select className="form-select">
-                          {cities.map((e, i) => {
+                          {states.map((e, i) => {
                             return <option key={i}>{e}</option>;
                           })}
                         </select>
                       </div>
                       <div className="col-md-6">
-                        <label className="form-label">States</label>
+                        <label className="form-label">City</label>
                         <select className="form-select">
-                          {states.map((e, i) => {
+                          {cities.map((e, i) => {
                             return <option key={i}>{e}</option>;
                           })}
                         </select>
@@ -141,8 +161,25 @@ function Profile() {
   );
 }
 
-Profile.getLayout = (page) => {
-  return <Layout simpleHeader>{page}</Layout>;
-};
+Profile.simpleHeader = true;
+Profile.hideAuth = true;
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/auth/login',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: { session },
+  };
+}
+
 
 export default Profile;

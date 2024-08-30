@@ -17,39 +17,38 @@ export const authOptions = {
           const db = client.db("GMC-ecommerce");
           const user = await db.collection('users').findOne({ email: credentials.email });
 
-          console.log("Authorize function - Found user:", user ? "Yes" : "No");
-
-          if (!user || !(await bcrypt.compare(credentials.password, user.password))) {
-            console.log("Authorize function - Authentication failed");
-            return null;
+          if (!user) {
+            throw new Error('No user found with this email');
           }
 
-          console.log("Authorize function - Authentication successful");
+          const isPasswordValid = await bcrypt.compare(credentials.password, user.password);
+
+          if (!isPasswordValid) {
+            throw new Error('Invalid password');
+          }
+
           return { id: user._id, email: user.email, name: user.name };
         } catch (error) {
           console.error('Error during authorization:', error);
-          return null;
+          throw error;
         }
       },
     }),
   ],
-  // callbacks: {
-  //   async jwt({ token, user }) {
-  //     console.log("JWT callback:", { token, user });
-  //     if (user) {
-  //       token.id = user.id;
-  //     }
-  //     return token;
-  //   },
-  //   async session({ session, token }) {
-  //     console.log("Session callback:", { session, token });
-  //     if (token) {
-  //       session.user.id = token.id;
-  //     }
-  //     return session;
-  //   },
-  // },
-  // debug: true,
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (token) {
+        session.user.id = token.id;
+      }
+      return session;
+    },
+  },
   session: {
     strategy: 'jwt',
   },
