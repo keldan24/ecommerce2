@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "react-responsive-carousel";
 import ProductSimpleCard from "../components/product/product-simple-card";
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`);
     const products = await response.json();
