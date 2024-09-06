@@ -1,26 +1,18 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
+import { useCart } from "./useCart";
 
-function CartItemRow() {
-  const getQtyInput = () => {
-    return (
-      <div className="input-group input-group-sm" style={{ width: 100 }}>
-        <button className="btn btn-outline-primary" type="button">
-          <FontAwesomeIcon icon={["fas", "minus"]} />
-        </button>
-        <input
-          type="text"
-          className="form-control text-center border-primary"
-          placeholder=""
-          defaultValue="1"
-          size="2"
-        />
-        <button className="btn btn-outline-primary" type="button">
-          <FontAwesomeIcon icon={["fas", "plus"]} />
-        </button>
-      </div>
-    );
+function CartItemRow({ id, title, price, image, quantity }) {
+  const { updateQuantity, removeFromCart } = useCart();
+
+  const handleQuantityChange = (newQuantity) => {
+    updateQuantity(id, newQuantity);
+  };
+
+  const handleRemove = () => {
+    removeFromCart(id);
   };
 
   return (
@@ -29,42 +21,53 @@ function CartItemRow() {
         <div className="hstack">
           <img
             className="rounded"
-            src={`https://source.unsplash.com/random/100x100?random=${Math.floor(
-              Math.random() * 50
-            )}`}
+            src={image}
             width={80}
             height={80}
-            alt="Product image."
+            alt={title}
             style={{ objectFit: "cover" }}
           />
           <div className="ms-3">
             <span className="h5">
-              <Link href="/product/1">
+              <Link href={`/product/${id}`}>
                 <a className="link-dark text-decoration-none">
-                  Product name here
+                  {title}
                 </a>
               </Link>
             </span>
-            <small className="d-flex text-muted" style={{ fontSize: 12 }}>
-              <span>Medium</span>
-              ,&nbsp;
-              <span>White</span>
-            </small>
           </div>
         </div>
       </td>
       <td>
-        <h6 className="mb-0">10000Ks</h6>
+        <h6 className="mb-0">${price.toFixed(2)}</h6>
       </td>
       <td>
         <div className="d-flex">
-          <div>{getQtyInput()}</div>
+          <div className="input-group input-group-sm" style={{ width: 100 }}>
+            <button className="btn btn-outline-primary" type="button" onClick={() => handleQuantityChange(quantity - 1)}>
+              <FontAwesomeIcon icon={["fas", "minus"]} />
+            </button>
+            <input
+              type="text"
+              className="form-control text-center border-primary"
+              value={quantity}
+              readOnly
+            />
+            <button className="btn btn-outline-primary" type="button" onClick={() => handleQuantityChange(quantity + 1)}>
+              <FontAwesomeIcon icon={["fas", "plus"]} />
+            </button>
+          </div>
         </div>
       </td>
       <td>
-        <button className="btn btn-sm btn-danger" type="button">
+        <Button
+          style={{ background: 'red', color: 'white', padding: '8px 5px', maxWidth: '40px'}} 
+          className="" 
+          type="button"
+          onClick={handleRemove}
+        >
           <FontAwesomeIcon icon={["fas", "trash-alt"]} />
-        </button>
+        </Button>
       </td>
     </tr>
   );

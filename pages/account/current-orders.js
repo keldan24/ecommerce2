@@ -1,11 +1,28 @@
 import AccountMenu from "../../components/account-menu";
 import CurrentOrderCard from "../../components/account/current-order-card";
-import Layout from "../../components/layout";
-import { useSession, getSession } from "next-auth/react";
+// import Layout from "../../components/layout";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
 function CurrentOrders() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/auth/login");
+    }
+  }, [status, router]);
+
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
+
+  if (!session) {
+    return null; 
+  }
+
   return (
     <div>
       <div className="bg-secondary">

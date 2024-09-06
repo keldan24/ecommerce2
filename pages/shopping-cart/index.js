@@ -1,8 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CartItemRow from "../../components/shopping-cart/cart-item-row";
 import PricingCard from "../../components/shopping-cart/pricing-card";
+import { useCart } from "../../components/shopping-cart/useCart";
 
 function ShoppingCart() {
+  const { cart } = useCart();
+
   return (
     <div className="container py-4">
       <div className="row g-3">
@@ -28,9 +31,9 @@ function ShoppingCart() {
                     </tr>
                   </thead> */}
                   <tbody>
-                    <CartItemRow />
-                    <CartItemRow />
-                    <CartItemRow />
+                    {cart.map(item => (
+                      <CartItemRow key={item.id} {...item} />
+                    ))}
                   </tbody>
                 </table>
               </div>

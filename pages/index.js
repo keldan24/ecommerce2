@@ -4,22 +4,23 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "react-responsive-carousel";
 import ProductSimpleCard from "../components/product/product-simple-card";
 
-// export async function getServerSideProps(context) {
-//   // Fetch session data
-//   const session = await getSession(context);
-//   // console.log('Session in getServerSideProps:', session);
+export async function getServerSideProps() {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`);
+    const products = await response.json();
+    return {
+      props: { products },
+    };
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    return {
+      props: { products: [] },
+    };
+  }
+}
 
-
-//   // Return session data as props
-//   return {
-//     props: {
-//       session,
-//     },
-//   };
-// }
-
-export default function Home() {
-  const list = [1, 2, 3, 4, 5, 6, 7, 8];
+export default function Home({ products }) {
+  // const list = [1, 2, 3, 4, 5, 6, 7, 8];
   // console.log('Session on the page:', session);
 
 
@@ -159,15 +160,18 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <h4 className="mb-3 fw-semibold">New products</h4>
+        <h4 className="mb-3 fw-semibold text-center">Our Products</h4>
         <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-3 mb-5">
-          {list.map((e, i) => {
-            return (
-              <div className="col" key={i}>
-                <ProductSimpleCard id={i} title={`Product ${i}`} />
-              </div>
-            );
-          })}
+          {products.map((product) => (
+            <div className="col" key={product._id}>
+              <ProductSimpleCard
+                id={product._id}
+                title={product.name}
+                price={product.price}
+                image={product.images[0]}
+              />
+            </div>
+          ))}
         </div>
       </div>
     </div>

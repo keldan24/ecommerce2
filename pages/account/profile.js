@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AccountMenu from "../../components/account-menu";
 import AddressView from "../../components/account/address-view";
-import { useSession, getSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
@@ -24,7 +24,7 @@ function Profile() {
   }
 
   if (!session) {
-    return null; // This will prevent the profile content from flashing before redirect
+    return null;
   }
 
 
@@ -62,7 +62,7 @@ function Profile() {
                     <form className="row g-3">
                       <div className="col-md-6">
                         <label className="form-label">Your Name</label>
-                        <input type="text" className="form-control" />
+                        <input type="text" className="form-control bg-light" disabled/>
                       </div>
                       <div className="col-md-6">
                         <label className="form-label">Password</label>
@@ -71,35 +71,30 @@ function Profile() {
                           className="form-control bg-light"
                           disabled
                         />
-                        <button
+                        {/* <button
                           type="button"
                           className="btn btn-sm btn-link float-end p-0 text-decoration-none"
                         >
                           Change password
-                        </button>
+                        </button> */}
                       </div>
-                      <div className="col-md-12 mt-0">
+                      <div className="col-md-12">
                         <label className="form-label">Phone</label>
                         <div className="input-group">
-                          <div>
-                            <select className="form-select rounded-0 rounded-start bg-light">
-                              <option>+95</option>
-                            </select>
-                          </div>
-                          <input type="tel" className="form-control" />
+                          <input type="tel" className="form-control  bg-light" disabled/>
                         </div>
                       </div>
                       <div className="col-md-12">
                         <label className="form-label">Email</label>
-                        <input type="email" className="form-control" />
+                        <input type="email" className="form-control bg-light" disabled/>
                       </div>
                       <div className="col-md-12">
                         <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" />
+                          <input className="form-check-input" type="radio" name="gender"/>
                           <label className="form-check-label">Male</label>
                         </div>
                         <div className="form-check form-check-inline">
-                          <input className="form-check-input" type="radio" />
+                          <input className="form-check-input" type="radio" name="gender" disabled/>
                           <label className="form-check-label">Female</label>
                         </div>
                       </div>
@@ -122,7 +117,7 @@ function Profile() {
 
                       <div className="col-md-12 mt-4">
                         <button className="btn btn-primary float-end">
-                          Update
+                          Change Credentials
                         </button>
                       </div>
                     </form>

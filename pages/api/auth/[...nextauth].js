@@ -27,7 +27,8 @@ export const authOptions = {
             throw new Error('Invalid password');
           }
 
-          return { id: user._id, email: user.email, name: user.name };
+          return { id: user._id, email: user.email, name: user.firstName };
+          console.log(user._id);
         } catch (error) {
           console.error('Error during authorization:', error);
           throw error;

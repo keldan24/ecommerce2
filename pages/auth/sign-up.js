@@ -4,7 +4,9 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import axios from 'axios';
-import Layout from '../../components/layout';
+// import Layout from '../../components/layout';
+import { useSession } from "next-auth/react";
+
 import {
   Dialog,
   DialogTitle,
@@ -42,8 +44,23 @@ const SignUp = () => {
   const [cityDialogOpen, setCityDialogOpen] = useState(false);
   const [dialogType, setDialogType] = useState('');
   const [selectedCountry, setSelectedCountry] = useState('');
+  const { data: session, status } = useSession();
 
+  useEffect(() => {
+    if (status === "authenticated") {
+      router.push("/");
+    }
+  }, [status, router]);
 
+  useEffect(() => {
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }});
+
+  useEffect(() => {
+  if (!session) {
+    return null;
+  }});
 
   // console.log(phone);
 
@@ -91,25 +108,25 @@ const SignUp = () => {
     const { name, value } = e.target;
     const updatedFormData = { ...formData, [name]: value };
     setFormData(updatedFormData);
-  
+
     // Combine phoneCode and phoneNumber with a space in between
     const combinedPhone = `${updatedFormData.phoneCode} ${updatedFormData.phoneNumber}`;
     setPhone(combinedPhone);
   };
-  
-  
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError('');
-  
+
     if (formData.password !== formData.confirmPassword) {
       setError("Passwords do not match.");
       setLoading(false);
       return;
     }
-  
+
     try {
       // Check if user already exists
       const resUserExists = await fetch("/api/userAuth", {
@@ -119,14 +136,14 @@ const SignUp = () => {
         },
         body: JSON.stringify({ email: formData.email }), // Ensure email is from formData
       });
-  
+
       const { user } = await resUserExists.json();
-  
+
       if (user) {
         setError("User email already exists.");
         return;
       }
-  
+
       // Register the new user
       const res = await fetch("/api/register", {
         method: "POST",
@@ -144,7 +161,7 @@ const SignUp = () => {
           password: formData.password
         }),
       });
-  
+
       if (res.ok) {
         setFormData({
           firstName: '',
@@ -170,7 +187,7 @@ const SignUp = () => {
       setLoading(false);
     }
   };
-  
+
 
 
   const handleOpenDialog = (type) => {

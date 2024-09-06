@@ -1,8 +1,29 @@
 import AccountMenu from "../../components/account-menu";
 import OrderHistoryItem from "../../components/account/order-history-item";
-import Layout from "../../components/layout";
+// import Layout from "../../components/layout";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 function OrderHistory() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/auth/login");
+    }
+  }, [status, router]);
+
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
+
+  if (!session) {
+    return null; 
+  }
+
+
   return (
     <div>
       <div className="bg-secondary">

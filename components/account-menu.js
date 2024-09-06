@@ -66,6 +66,20 @@ function AccountMenu({ current }) {
               My favorites
             </a>
           </Link>
+          <Link href="/product/add">
+            <a
+              className={
+                itemCss + (current == "add-product" ? " active" : "")
+              }
+            >
+              <FontAwesomeIcon
+                icon={["fas", "plus"]}
+                className="me-2"
+                fixedWidth
+              />
+              Add products
+            </a>
+          </Link>
         </div>
       </div>
     </div>

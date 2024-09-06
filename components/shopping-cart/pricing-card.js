@@ -8,7 +8,7 @@ function PricingCard({ data, pricingOnly, children }) {
         <div className="vstack gap-2">
           <div className="d-flex justify-content-between">
             <span>Subtotal:</span>
-            <span>30,000Ks</span>
+            <span>$30,000</span>
           </div>
           <div className="d-flex justify-content-between">
             <span>Discount:</span>
@@ -16,14 +16,14 @@ function PricingCard({ data, pricingOnly, children }) {
           </div>
           <div className="d-flex justify-content-between">
             <span>Delivery charge:</span>
-            <span className="text-success">+2,000Ks</span>
+            <span className="text-success">+$2,000</span>
           </div>
 
           <hr className="text-muted" />
 
           <div className="d-flex justify-content-between">
             <span className="h5">Total:</span>
-            <span className="fw-bold h5 mb-0">32,000 Ks</span>
+            <span className="fw-bold h5 mb-0">$32,000</span>
           </div>
 
           {!pricingOnly && (

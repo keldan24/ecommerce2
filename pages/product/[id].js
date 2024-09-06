@@ -1,9 +1,15 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProductRating from "../../components/product-rating";
 import ProductSimpleHorizontal from "../../components/product/product-simple-horizontal";
+import { Button } from "@mui/material";
+import { useState } from "react";
+import Link from "next/link";
 
 function ProductDetail() {
   const images = [2, 4, 6, 8, 1];
+  const colors = [1, 2, 3, 4, 5]
+  const [isColorActive, setIsColorActive] = useState(false)
+  const [isSizeActive, setIsSizeActive] = useState(false)
 
   return (
     <div className="vstack">
@@ -104,127 +110,85 @@ function ProductDetail() {
                   visual mockups.
                 </p>
                 <dl className="row mb-0">
-                  <dt className="col-sm-3 fw-semibold">Code#</dt>
-                  <dd className="col-sm-9">10001</dd>
+                  <dt className="col-sm-3 fw-semibold">Brand</dt>
+                  <dd className="col-sm-9">#brand</dd>
                   <dt className="col-sm-3 fw-semibold">Category</dt>
                   <dd className="col-sm-9">Electronics</dd>
                   <dt className="col-sm-3 fw-semibold">Delivery</dt>
-                  <dd className="col-sm-9">Yangon, Mandalay</dd>
+                  <dd className="col-sm-9">Lagos, Nigeria</dd>
                 </dl>
                 <hr className="text-muted" />
                 <dl className="row gy-2 mb-4">
-                  <dt className="col-12 fw-semibold">Color</dt>
-                  <dd className="col-12">
-                    <div className="hstack gap-2">
-                      <div className="form-check">
-                        <input
-                          type="radio"
-                          className="form-check-input"
-                          name="color1"
-                          id="c1"
-                        />
-                        <label
-                          className="form-check-label fw-medium"
-                          htmlFor="c1"
-                        >
-                          Red
-                        </label>
-                      </div>
-                      <div className="form-check">
-                        <input
-                          type="radio"
-                          className="form-check-input"
-                          name="color1"
-                          id="c2"
-                          checked
-                          onChange={() => {}}
-                        />
-                        <label
-                          className="form-check-label fw-medium"
-                          htmlFor="c2"
-                        >
-                          Green
-                        </label>
-                      </div>
-                      <div className="form-check">
-                        <input
-                          type="radio"
-                          className="form-check-input"
-                          name="color1"
-                          id="c3"
-                        />
-                        <label
-                          className="form-check-label fw-medium"
-                          htmlFor="c3"
-                        >
-                          Blue
-                        </label>
-                      </div>
-                    </div>
-                  </dd>
+                  {!isColorActive &&
+                    <>
+                      <dt className="col-12 fw-semibold">Color</dt>
+                      <dd className="col-12">
+                        <div className="d-flex gap-2">
+                          {colors.map((color, index) => (
+                            <Button
+                              key={index}
+                              className="text-light"
+                              style={{ backgroundColor: `rgba(0,0,0,0.7)`, fontWeight: '600', textTransform: 'capitalize', padding: '5px 10px' }}
+                            >
+                              Color
+                            </Button>
+                          ))}
+                        </div>
+                      </dd>
+                    </>
+                  }
 
-                  <dt className="col-12 fw-semibold">Size</dt>
-                  <dd className="col-12">
-                    <div className="hstack gap-2">
-                      <div className="form-check">
-                        <input
-                          type="radio"
-                          className="form-check-input"
-                          name="size1"
-                          id="s1"
-                          checked
-                          onChange={() => {}}
-                        />
-                        <label
-                          className="form-check-label fw-medium"
-                          htmlFor="s1"
-                        >
-                          Small
-                        </label>
-                      </div>
-                      <div className="form-check">
-                        <input
-                          type="radio"
-                          className="form-check-input"
-                          name="size1"
-                          id="s2"
-                        />
-                        <label
-                          className="form-check-label fw-medium"
-                          htmlFor="s2"
-                        >
-                          Medium
-                        </label>
-                      </div>
-                      <div className="form-check">
-                        <input
-                          type="radio"
-                          className="form-check-input"
-                          name="size1"
-                          id="s3"
-                        />
-                        <label
-                          className="form-check-label fw-medium"
-                          htmlFor="c3"
-                        >
-                          Large
-                        </label>
-                      </div>
-                    </div>
-                  </dd>
+                  {!isSizeActive &&
+                    <>
+                      <dt className="col-12 fw-semibold">Size</dt>
+                      <dd className="">
+                        <div className="d-flex gap-2">
+                          {colors.map((color, index) => (
+                            <Button
+                              key={index}
+                              className="text-light"
+                              style={{ fontWeight: '600', textTransform: 'capitalize', padding: '5px 10px', backgroundColor: 'rgba(24, 16, 204, 0.6' }}
+                            >
+                              Small
+                            </Button>
+                          ))}
+
+
+                          {/* <Button
+                        variant="contained"
+                        className="fw-medium"
+                      >
+                        Medium
+                      </Button>
+                      <Button
+                        variant="contained"
+                        className="fw-medium">
+                        Large
+                      </Button> */}
+                        </div>
+                      </dd>
+                    </>
+                  }
                 </dl>
 
                 <div className="d-flex">
-                  <a
-                    href="#"
-                    className="btn btn-primary px-md-4 col col-md-auto me-2"
-                  >
-                    Buy now
-                  </a>
-                  <button className="btn btn-outline-primary col col-md-auto">
+                  <Link href={'#'}>
+                    <Button
+                      variant="contained"
+                      className="px-md-4 col col-md-auto me-2"
+                      style={{ textTransform: 'capitalize', fontSize: '15px', fontWeight: '600' }}
+                    >
+                      Buy now
+                    </Button>
+                  </Link>
+                  <Button
+                    variant="outlined"
+                    className="col col-md-auto text-light border-0"
+                    style={{ textTransform: 'capitalize', fontSize: '17px', fontWeight: '600', backgroundColor: 'rgba(31, 44, 195, 0.5)', boxShadow: '0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12)'}}
+                    >
                     <FontAwesomeIcon icon={["fas", "cart-plus"]} />
                     &nbsp;Add to cart
-                  </button>
+                  </Button>
                 </div>
               </div>
             </div>
@@ -305,7 +269,7 @@ function ProductDetail() {
       <br />
       <br />
       <br />
-    </div>
+    </div >
   );
 }
 

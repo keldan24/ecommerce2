@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { useEffect } from "react";
 
 function Login() {
   const router = useRouter();
@@ -11,6 +13,23 @@ function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const { data: session, status } = useSession();
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      router.push("/");
+    }
+  }, [status, router]);
+
+  useEffect(() => {
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }});
+
+  useEffect(() => {
+  if (!session) {
+    return null;
+  }});
 
   const handleSubmit = async (e) => {
     e.preventDefault();
